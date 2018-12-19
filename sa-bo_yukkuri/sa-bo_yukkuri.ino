@@ -13,6 +13,8 @@ void loop()
 {
  
   myservo.write(179, 20, true);//(度, 速度, 待つ)
+  delay(1000);
   myservo.write(0, 20, true);//(度, 速度, 待つ)
+  delay(1000);
   
 }

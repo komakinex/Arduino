@@ -2,10 +2,10 @@
 
 #include <Adafruit_NeoPixel.h>
 #include <CapacitiveSensor.h>
- 
+
 // 4ピン : 電気エネルギーを送信します。
 // 2ピン : センサーで変化を感知します。
-CapacitiveSensor capSensor = CapacitiveSensor(6, 4);
+CapacitiveSensor capSensor = CapacitiveSensor(4, 2);
 
 
 // RGBLEDに出力するピン番号
@@ -20,20 +20,18 @@ Adafruit_NeoPixel RGBLED = Adafruit_NeoPixel(NUMRGBLED, RGBLED_OUTPIN, NEO_RGB +
 int b = 0;
 int c = 0;
 
-boolean touch = false;
-
 
 
 void setup()
 {
   RGBLED.begin();//RGBLEDライブラリの初期化
-  RGBLED.setBrightness(255);//明るさの指定(0-255)を行う
-  RGBLED.setPixelColor(0,100+c,b,c);
-  RGBLED.setPixelColor(1,100+c,b,c);
-  RGBLED.setPixelColor(2,100+c,b,c);
-  RGBLED.setPixelColor(3,100+c,b,c);
-  RGBLED.setPixelColor(4,100+c,b,c);
-  RGBLED.setPixelColor(5,100+c,b,c);
+  RGBLED.setBrightness(75);//明るさの指定(0-255)を行う
+  RGBLED.setPixelColor(0,0,102,255);
+  RGBLED.setPixelColor(1,0,102,255);
+  RGBLED.setPixelColor(2,0,102,255);
+  RGBLED.setPixelColor(3,0,102,255);
+  RGBLED.setPixelColor(4,0,102,255);
+  RGBLED.setPixelColor(5,0,102,255);
   RGBLED.show();
 }
  
@@ -41,32 +39,32 @@ void loop()
 {
   // タッチセンサーの値を取得する
   long sensorValue = capSensor.capacitiveSensor(30);
+  Serial.println(sensorValue);
 
   // 500以上ならば
   if (sensorValue > 500)
   { 
-    RGBLED.setPixelColor(0,100,b,0);
-    RGBLED.setPixelColor(1,100,b,0);
-    RGBLED.setPixelColor(2,100,b,0);
-    RGBLED.setPixelColor(3,100,b,0);
-    RGBLED.setPixelColor(4,100,b,0);
-    RGBLED.setPixelColor(5,100,b,0);
-    b += 30;
+    RGBLED.setPixelColor(0,51,b,255);
+    RGBLED.setPixelColor(1,51,b,255);
+    RGBLED.setPixelColor(2,51,b,255);
+    RGBLED.setPixelColor(3,51,b,255);
+    RGBLED.setPixelColor(4,51,b,255);
+    RGBLED.setPixelColor(5,51,b,255);
+    b += 80;
     RGBLED.show();
 
     if(b>200)
     {
-      RGBLED.setPixelColor(0,100+c,b,c);
-  RGBLED.setPixelColor(1,100+c,b,c);
-  RGBLED.setPixelColor(2,100+c,b,c);
-  RGBLED.setPixelColor(3,100+c,b,c);
-  RGBLED.setPixelColor(4,100+c,b,c);
-  RGBLED.setPixelColor(5,100+c,b,c);
+      RGBLED.setPixelColor(0,51+c,b,255+c);
+      RGBLED.setPixelColor(1,51+c,b,255+c);
+      RGBLED.setPixelColor(2,51+c,b,255+c);
+      RGBLED.setPixelColor(3,51+c,b,255+c);
+      RGBLED.setPixelColor(4,51+c,b,255+c);
+      RGBLED.setPixelColor(5,51+c,b,255+c);
       
-      c += 30;
+      c += 50;
       RGBLED.show();
     }
   }
-  Serial.println(sensorValue);
   delay(200);
 }
